@@ -6,7 +6,7 @@ export interface UserSchemaInterface extends Document {
   password: string;
   isAdmin?: boolean;
   img: string;
-  _doc: { password: string; [key: string]: any };
+  [key: string]: any;
 }
 
 const UserSchema = new mongoose.Schema<UserSchemaInterface>(
@@ -19,13 +19,9 @@ const UserSchema = new mongoose.Schema<UserSchemaInterface>(
       default: false,
     },
     img: { type: String },
-    _doc: {
-      type: Object,
-      required: true,
-    },
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", UserSchema);
+const User= mongoose.model("User", UserSchema);
 export default User;

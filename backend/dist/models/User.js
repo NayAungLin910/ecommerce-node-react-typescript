@@ -13,10 +13,6 @@ const UserSchema = new mongoose_1.default.Schema({
         default: false,
     },
     img: { type: String },
-    _doc: {
-        type: Object,
-        required: true,
-    },
 }, { timestamps: true });
 const User = mongoose_1.default.model("User", UserSchema);
 exports.default = User;

@@ -48,9 +48,9 @@ export const postLogin = async (req: Request, res: Response) => {
       { expiresIn: "3d" }
     );
 
-    const { password, ...others } = user!._doc;
+    const { password, ...others } = user?._doc;
 
-    res.status(200).json({ ...others, accessToken });
+    res.status(200).json({ accessToken });
   } catch (err) {
     res.status(500).json(err);
   }
