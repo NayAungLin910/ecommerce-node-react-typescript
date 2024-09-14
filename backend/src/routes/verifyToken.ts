@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export interface VerifyTokenRequestInterface extends Request {
-  user: any;
+export interface VerifyTokenRequest extends Request {
+  user?: any;
 }
 
 export const verifyToken = (
-  req: VerifyTokenRequestInterface,
+  req: VerifyTokenRequest,
   res: Response,
   next: () => void
 ) => {
@@ -25,12 +25,12 @@ export const verifyToken = (
 };
 
 export const verifyTokenAndAuthorization = (
-  req: VerifyTokenRequestInterface,
+  req: VerifyTokenRequest,
   res: Response,
   next: NextFunction
 ) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.user.id === req.params.id! || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not allowed!");
@@ -39,7 +39,7 @@ export const verifyTokenAndAuthorization = (
 };
 
 export const verifyTokenAndAdmin = (
-  req: VerifyTokenRequestInterface,
+  req: VerifyTokenRequest,
   res: Response,
   next: NextFunction
 ) => {
