@@ -10,7 +10,7 @@ export const verifyToken = (
   res: Response,
   next: () => void
 ) => {
-  const authHeader = req.headers.token;
+  const authHeader = req.headers["authorization"];
 
   if (authHeader && typeof authHeader === "string") {
     const token = authHeader.split(" ")[1];
@@ -30,7 +30,7 @@ export const verifyTokenAndAuthorization = (
   next: NextFunction
 ) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id! || req.user.isAdmin) {
+    if (req.user.id === req.params.userId! || req.user.isAdmin) {
       next();
     } else {
       res.status(403).json("You are not allowed!");

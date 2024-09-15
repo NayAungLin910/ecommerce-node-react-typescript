@@ -57,7 +57,7 @@ const postLogin = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             isAdmin: user === null || user === void 0 ? void 0 : user.isAdmin,
         }, process.env.JWT_SEC, { expiresIn: "3d" });
         const _a = user === null || user === void 0 ? void 0 : user._doc, { password } = _a, others = __rest(_a, ["password"]);
-        res.status(200).json({ accessToken });
+        res.status(200).json(Object.assign(Object.assign({}, others), { accessToken }));
     }
     catch (err) {
         res.status(500).json(err);

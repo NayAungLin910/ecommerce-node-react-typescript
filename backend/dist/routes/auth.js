@@ -36,5 +36,5 @@ const express_1 = require("express");
 const authController = __importStar(require("../controllers/AuthController"));
 const router = (0, express_1.Router)();
 router.post("/register", (request, response) => __awaiter(void 0, void 0, void 0, function* () { return yield authController.postRegister(request, response); }));
-router.post("login", (request, response) => __awaiter(void 0, void 0, void 0, function* () { return yield authController.postLogin(request, response); }));
+router.post("/login", (request, response) => __awaiter(void 0, void 0, void 0, function* () { return yield authController.postLogin(request, response); }));
 exports.default = router;

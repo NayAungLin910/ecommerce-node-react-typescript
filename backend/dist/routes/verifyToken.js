@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyTokenAndAdmin = exports.verifyTokenAndAuthorization = exports.verifyToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const verifyToken = (req, res, next) => {
-    const authHeader = req.headers.token;
+    const authHeader = req.headers["authorization"];
     if (authHeader && typeof authHeader === "string") {
         const token = authHeader.split(" ")[1];
         jsonwebtoken_1.default.verify(token, process.env.JWT_SEC, (err, user) => {
@@ -23,7 +23,7 @@ const verifyToken = (req, res, next) => {
 exports.verifyToken = verifyToken;
 const verifyTokenAndAuthorization = (req, res, next) => {
     (0, exports.verifyToken)(req, res, () => {
-        if (req.user.id === req.params.id || req.user.isAdmin) {
+        if (req.user.id === req.params.userId || req.user.isAdmin) {
             next();
         }
         else {

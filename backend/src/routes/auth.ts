@@ -11,7 +11,7 @@ router.post(
 );
 
 router.post(
-  "login",
+  "/login",
   async (request, response) => await authController.postLogin(request, response)
 );
 
