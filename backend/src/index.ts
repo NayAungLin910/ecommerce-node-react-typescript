@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import authRouter from "./routes/auth";
 import cartRouter from "./routes/cart";
 import productRouter from "./routes/product";
+import userRouter from "./routes/user";
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Express is listening...");
