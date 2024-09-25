@@ -19,6 +19,8 @@ const Wrapper = styled.div`
 
 const Left = styled.span`
   font-size: 14px;
+  display: flex;
+  align-items: center;
   cursor: pointer;
   ${mobile({ display: "none" })}
 `;
@@ -37,12 +39,12 @@ const SearchContainer = styled.div`
   padding: 5px;
 `;
 const Input = styled.input`
+  outline: none;
   border: none;
   ${mobile({ width: "50px" })}
 `;
 
 const Center = styled.div`
-  flex: 1;
   text-align: center;
 `;
 
@@ -52,7 +54,6 @@ const Logo = styled.h1`
 `;
 
 const Right = styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
