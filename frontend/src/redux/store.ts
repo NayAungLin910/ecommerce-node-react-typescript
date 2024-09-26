@@ -4,6 +4,7 @@ import userReducer from "./userRedux";
 import {
   FLUSH,
   PAUSE,
+  PERSIST,
   persistReducer,
   PURGE,
   REGISTER,
@@ -28,7 +29,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER],
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER, PERSIST],
       },
     }),
 });

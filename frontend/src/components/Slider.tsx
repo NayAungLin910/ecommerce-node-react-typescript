@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { mobile } from "./css-helper/css-helper";
 import { FC, useState } from "react";
+import { sliderItems } from "../data/data";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 const Container = styled.div`
   width: 100%;
@@ -35,14 +37,14 @@ const Arrow = styled.div<ArrowPropsInterface>`
 `;
 
 export interface WrapperPropsInterface {
-  slideIndex: number;
+  slideindex: number;
 }
 
 const Wrapper = styled.div<WrapperPropsInterface>`
   height: 100%;
   display: flex;
   transistion: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  transform: translateX(${(props) => props.slideindex * -100}vw);
 `;
 
 export interface StliderPropsInterface {
@@ -59,6 +61,8 @@ const Slide = styled.div<StliderPropsInterface>`
 
 const ImgContainer = styled.div`
   height: 100%;
+  display: flex;
+  align-items: center;
   flex: 1;
 `;
 
@@ -102,11 +106,26 @@ const Slider: FC<{}> = ({}) => {
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}></Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        
+      <Arrow direction="left" onClick={() => handleClick("left")}>
+        <FaArrowAltCircleLeft />
+      </Arrow>
+      <Wrapper slideindex={slideIndex}>
+        {sliderItems.map((item) => (
+          <Slide bg={item.bg} key={item.id}>
+            <ImgContainer>
+              <Image src={item.img} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{item.title}</Title>
+              <Desc>{item.desc}</Desc>
+              <Button>SHOW ON</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}></Arrow>
+      <Arrow direction="right" onClick={() => handleClick("right")}>
+        <FaArrowAltCircleRight />
+      </Arrow>
     </Container>
   );
 };
