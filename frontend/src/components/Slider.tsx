@@ -37,18 +37,18 @@ const Arrow = styled.div<ArrowPropsInterface>`
 `;
 
 export interface WrapperPropsInterface {
-  slideindex: number;
+  $slideIndex: number;
 }
 
 const Wrapper = styled.div<WrapperPropsInterface>`
   height: 100%;
   display: flex;
   transistion: all 1.5s ease;
-  transform: translateX(${(props) => props.slideindex * -100}vw);
+  transform: translateX(${(props) => props.$slideIndex * -100}vw);
 `;
 
 export interface StliderPropsInterface {
-  bg: string;
+  $bg: string;
 }
 
 const Slide = styled.div<StliderPropsInterface>`
@@ -56,7 +56,7 @@ const Slide = styled.div<StliderPropsInterface>`
   height: 100vh;
   display: flex;
   align-items: center;
-  background-color: #${(props) => props.bg};
+  background-color: #${(props) => props.$bg};
 `;
 
 const ImgContainer = styled.div`
@@ -109,9 +109,9 @@ const Slider: FC<{}> = ({}) => {
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <FaArrowAltCircleLeft />
       </Arrow>
-      <Wrapper slideindex={slideIndex}>
+      <Wrapper $slideIndex={slideIndex}>
         {sliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
+          <Slide $bg={item.bg} key={item.id}>
             <ImgContainer>
               <Image src={item.img} />
             </ImgContainer>
