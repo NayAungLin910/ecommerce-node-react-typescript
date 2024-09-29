@@ -76,7 +76,7 @@ router.get("/", async (req: VerifyTokenRequest, res: Response) => {
     } else {
       products = await Product.find();
     }
-    res.status(200).json(req);
+    res.status(200).json(products);
   } catch (err) {
     res.status(500).json(err);
   }

@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const cart_1 = __importDefault(require("./routes/cart"));
 const product_1 = __importDefault(require("./routes/product"));
+const user_1 = __importDefault(require("./routes/user"));
 const dotenv = require("dotenv");
 dotenv.config();
 mongoose_1.default
@@ -21,6 +22,7 @@ app.use(express_1.default.json());
 app.use("/api/auth", auth_1.default);
 app.use("/api/carts", cart_1.default);
 app.use("/api/products", product_1.default);
+app.use("/api/users", user_1.default);
 app.listen(process.env.PORT || 5000, () => {
     console.log("Express is listening...");
 });

@@ -74,7 +74,7 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         else {
             products = yield Product_1.default.find();
         }
-        res.status(200).json(req);
+        res.status(200).json(products);
     }
     catch (err) {
         res.status(500).json(err);

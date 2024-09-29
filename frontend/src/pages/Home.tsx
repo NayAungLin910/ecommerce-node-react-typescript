@@ -12,8 +12,8 @@ const Home: FC<HomePropsInterface> = ({}) => {
   return (
     <>
       <div>
-        <Announcment />
         <Navbar />
+        <Announcment />
         <Slider />
         <Categories />
         <Newsletter />
