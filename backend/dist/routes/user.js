@@ -27,7 +27,6 @@ const express_1 = require("express");
 const verifyToken_1 = require("./verifyToken");
 const User_1 = __importDefault(require("../models/User"));
 const router = (0, express_1.Router)();
-// update
 router.put("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     req.body.password = req.body.password
         ? CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
@@ -40,7 +39,6 @@ router.put("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __aw
         res.status(500).json(err);
     }
 }));
-// delete
 router.delete("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield User_1.default.findByIdAndDelete(req.params.id);
@@ -50,7 +48,6 @@ router.delete("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => _
         res.status(500).json(err);
     }
 }));
-// get user
 router.get("/find/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User_1.default.findById(req.params.id);
@@ -61,7 +58,6 @@ router.get("/find/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) =>
         res.status(500).json(err);
     }
 }));
-// get all user
 router.get("/", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const users = req.query.new
@@ -73,7 +69,6 @@ router.get("/", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __await
         res.status(500).json(err);
     }
 }));
-// get user stats
 router.get("/status", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const lastYear = new Date(new Date().setFullYear(new Date().getFullYear() - 1));
     try {

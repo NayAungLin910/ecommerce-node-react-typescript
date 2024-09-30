@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import axiosDefault from "./utilities/axios-common";
+import { AxiosResponse } from "axios";
+import { ProductRequestInterface } from "../types/response-types";
 
 const Container = styled.div`
     padding: 20px;
@@ -19,14 +21,15 @@ export interface ProductsComponentInterface {
 }
 
 const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
-  const [products, setProducts] = useState<[]>([]);
+  const [products, setProducts] = useState<ProductRequestInterface[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<[]>([]);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axiosDefault.get("/products");
-        console.log(res);
+        const res: AxiosResponse<ProductRequestInterface[]> =
+          await axiosDefault.get("/products");
+        setProducts(res.data);
       } catch (err) {
         console.log(err);
       }
@@ -38,7 +41,7 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
     <>
       <Container>
         {products?.map((item: any) => (
-          <Product item={item} key={item.id} />
+          <Product item={item} key={item._id} />
         ))}
       </Container>
     </>

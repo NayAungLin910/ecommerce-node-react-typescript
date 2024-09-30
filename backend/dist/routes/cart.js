@@ -16,7 +16,6 @@ const express_1 = require("express");
 const verifyToken_1 = require("./verifyToken");
 const Cart_1 = __importDefault(require("../models/Cart"));
 const router = (0, express_1.Router)();
-// create cart api
 router.post("/", verifyToken_1.verifyToken, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newCart = new Cart_1.default(req.body);
     try {
@@ -27,7 +26,6 @@ router.post("/", verifyToken_1.verifyToken, (req, res) => __awaiter(void 0, void
         res.status(500).json(err);
     }
 }));
-// update cart api
 router.put("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const cart = yield Cart_1.default.findByIdAndUpdate(req.body.id, {
@@ -39,7 +37,6 @@ router.put("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __aw
         res.status(500).json(err);
     }
 }));
-// delete cart api
 router.delete("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield Cart_1.default.findByIdAndDelete(req.body.id);
@@ -49,7 +46,6 @@ router.delete("/:id", verifyToken_1.verifyTokenAndAuthorization, (req, res) => _
         res.status(500).json(err);
     }
 }));
-// get user id
 router.get("/find/:userId", verifyToken_1.verifyTokenAndAuthorization, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const cart = yield Cart_1.default.find({ userId: req.params.userId });
@@ -59,7 +55,6 @@ router.get("/find/:userId", verifyToken_1.verifyTokenAndAuthorization, (req, res
         res.status(500).json(err);
     }
 }));
-// get all carts
 router.get("/", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const carts = yield Cart_1.default.find();

@@ -16,7 +16,6 @@ const express_1 = require("express");
 const verifyToken_1 = require("./verifyToken");
 const Product_1 = __importDefault(require("../models/Product"));
 const router = (0, express_1.Router)();
-// create product
 router.post("/", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newProduct = new Product_1.default(req.body);
     try {
@@ -27,7 +26,6 @@ router.post("/", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void
         res.status(500).json(err);
     }
 }));
-// update product
 router.post("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const updatedProduct = yield Product_1.default.findByIdAndUpdate(req.params.id, {
@@ -39,7 +37,6 @@ router.post("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(v
         res.status(500).json(err);
     }
 }));
-// delete product
 router.delete("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield Product_1.default.findByIdAndDelete(req.params.id);
@@ -49,7 +46,6 @@ router.delete("/:id", verifyToken_1.verifyTokenAndAdmin, (req, res) => __awaiter
         res.status(500).json(err);
     }
 }));
-// get product
 router.get("/find/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const product = yield Product_1.default.findById(req.params.id);
@@ -59,7 +55,6 @@ router.get("/find/:id", (req, res) => __awaiter(void 0, void 0, void 0, function
         res.status(500).json(err);
     }
 }));
-// get all products
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         let products;
