@@ -28,7 +28,9 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
     const getProducts = async () => {
       try {
         const res: AxiosResponse<ProductRequestInterface[]> =
-          await axiosDefault.get("/products");
+          await axiosDefault.get(
+            cat ? `/products?category=${cat}` : `/products`
+          );
         setProducts(res.data);
       } catch (err) {
         console.log(err);

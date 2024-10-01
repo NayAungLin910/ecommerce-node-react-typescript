@@ -62,7 +62,6 @@ const ProductList: FC<ProductListPropsInterface> = ({}) => {
       <Navbar />
       <Announcment />
       <Title>{cat}</Title>
-      {JSON.stringify(filters)} {sort}
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products: </FilterText>
