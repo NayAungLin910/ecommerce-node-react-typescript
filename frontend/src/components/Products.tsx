@@ -15,14 +15,16 @@ const Container = styled.div`
 export interface ProductsComponentInterface {
   cat?: string;
   filters?: {
-    [key: string]: any;
+    [key: string]: string;
   };
   sort?: string;
 }
 
 const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
-  const [products, setProducts] = useState<ProductRequestInterface[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<[]>([]);
+  const [products, setProducts] = useState<ProductRequestInterface[]>();
+  const [filteredProducts, setFilteredProducts] = useState<
+    ProductRequestInterface[]
+  >([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -39,12 +41,32 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
     getProducts();
   }, [cat]);
 
+  useEffect(() => {
+    products &&
+      filters &&
+      Object.keys(filters).length > 0 &&
+      setFilteredProducts(() =>
+        products.filter((pd) =>
+          Object.entries(filters).every(([key, value]) => {
+            const pdValue = pd[key as keyof ProductRequestInterface];
+            if (Array.isArray(pdValue)) {
+              return pdValue.includes(value);
+            }
+          })
+        )
+      );
+  }, [products, filters]);
+
   return (
     <>
       <Container>
-        {products?.map((item: any) => (
-          <Product item={item} key={item._id} />
-        ))}
+        {filters && Object.keys(filters).length > 0
+          ? filteredProducts?.map((item: any) => (
+              <Product item={item} key={item._id} />
+            ))
+          : products?.map((item: any) => (
+              <Product item={item} key={item._id} />
+            ))}
       </Container>
     </>
   );

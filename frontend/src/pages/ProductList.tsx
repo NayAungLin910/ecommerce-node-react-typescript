@@ -44,6 +44,7 @@ const Option = styled.option``;
 const ProductList: FC<ProductListPropsInterface> = ({}) => {
   const location = useLocation();
   const cat = location.pathname.split("/")[2];
+
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState("newest");
 
@@ -64,9 +65,9 @@ const ProductList: FC<ProductListPropsInterface> = ({}) => {
       <Title>{cat}</Title>
       <FilterContainer>
         <Filter>
-          <FilterText>Filter Products: </FilterText>
-          <Select name="color" onChange={handleFilters}>
-            <Option disabled>Color</Option>
+          <FilterText>Color: </FilterText>
+          <Select name="color" id="color-select" onChange={handleFilters}>
+            <Option></Option>
             <Option>white</Option>
             <Option>black</Option>
             <Option>red</Option>
@@ -74,8 +75,9 @@ const ProductList: FC<ProductListPropsInterface> = ({}) => {
             <Option>yellow</Option>
             <Option>green</Option>
           </Select>
-          <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
+          <FilterText>Size: </FilterText>
+          <Select name="size" id="size-select" onChange={handleFilters}>
+            <Option></Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>
