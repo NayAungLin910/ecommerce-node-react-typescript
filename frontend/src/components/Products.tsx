@@ -1,15 +1,14 @@
 import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
-import axiosDefault from "./utilities/axios-common";
+import { publicRequest } from "./utilities/axios-common";
 import { AxiosResponse } from "axios";
 import { ProductRequestInterface } from "../types/response-types";
 
 const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap:
-    justify-content: space-between;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export interface ProductsComponentInterface {
@@ -26,11 +25,16 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
     ProductRequestInterface[]
   >([]);
 
+  const filtersExist =
+    filters &&
+    Object.values(filters).length > 0 &&
+    Object.values(filters).some((val) => Boolean(val));
+
   useEffect(() => {
     const getProducts = async () => {
       try {
         const res: AxiosResponse<ProductRequestInterface[]> =
-          await axiosDefault.get(
+          await publicRequest.get(
             cat ? `/products?category=${cat}` : `/products`
           );
         setProducts(res.data);
@@ -42,14 +46,12 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
   }, [cat]);
 
   useEffect(() => {
-    products &&
-      filters &&
-      Object.keys(filters).length > 0 &&
+    filtersExist &&
       setFilteredProducts(() =>
-        products.filter((pd) =>
+        products!.filter((pd) =>
           Object.entries(filters).every(([key, value]) => {
             const pdValue = pd[key as keyof ProductRequestInterface];
-            if (Array.isArray(pdValue)) {
+            if (Array.isArray(pdValue) && value) {
               return pdValue.includes(value);
             }
           })
@@ -57,10 +59,60 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
       );
   }, [products, filters]);
 
+  useEffect(() => {
+    if (sort == "newest") {
+      if (filtersExist) {
+        setFilteredProducts((prevPros) =>
+          prevPros.sort(
+            (a, b) =>
+              new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+          )
+        );
+      } else {
+        setProducts((prevPros) => {
+          if (prevPros && prevPros.length > 0) {
+            return prevPros.sort(
+              (a, b) =>
+                new Date(a.createdAt).getTime() -
+                new Date(b.createdAt).getTime()
+            );
+          }
+          return prevPros;
+        });
+      }
+    } else if (sort === "asc") {
+      if (filtersExist) {
+        setFilteredProducts((prevPros) =>
+          prevPros.sort((a, b) => a.price - b.price)
+        );
+      } else {
+        setProducts((prevPros) => {
+          if (prevPros && prevPros.length > 0) {
+            return prevPros.sort((a, b) => a.price - b.price);
+          }
+          return prevPros;
+        });
+      }
+    } else {
+      if (filtersExist) {
+        setFilteredProducts((prevPros) =>
+          prevPros.sort((a, b) => b.price - a.price)
+        );
+      } else {
+        setProducts((prevPros) => {
+          if (prevPros && prevPros.length > 0) {
+            return prevPros.sort((a, b) => b.price - a.price);
+          }
+          return prevPros;
+        });
+      }
+    }
+  }, [sort]);
+
   return (
     <>
       <Container>
-        {filters && Object.keys(filters).length > 0
+        {filtersExist
           ? filteredProducts?.map((item: any) => (
               <Product item={item} key={item._id} />
             ))

@@ -14,7 +14,7 @@ const Container = styled.div`
 `;
 
 export interface ArrowPropsInterface {
-  direction: string;
+  $direction: string;
 }
 
 const Arrow = styled.div<ArrowPropsInterface>`
@@ -28,8 +28,8 @@ const Arrow = styled.div<ArrowPropsInterface>`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.$direction === "left" && "10px"};
+  right: ${(props) => props.$direction === "right" && "10px"};
   margin: auto;
   curosr: pointer;
   opacity: 0.5;
@@ -106,7 +106,7 @@ const Slider: FC<{}> = ({}) => {
 
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+      <Arrow $direction="left" onClick={() => handleClick("left")}>
         <FaArrowAltCircleLeft />
       </Arrow>
       <Wrapper $slideIndex={slideIndex}>
@@ -123,7 +123,7 @@ const Slider: FC<{}> = ({}) => {
           </Slide>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
+      <Arrow $direction="right" onClick={() => handleClick("right")}>
         <FaArrowAltCircleRight />
       </Arrow>
     </Container>

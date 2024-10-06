@@ -22,7 +22,7 @@ const Info = styled.div`
 `;
 
 const Container = styled.div`
-  flex: 1;
+  max-width: 480px;
   margin: 5px;
   min-width: 280px;
   height: 350px;
