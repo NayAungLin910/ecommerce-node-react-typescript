@@ -71,7 +71,11 @@ router.get("/", async (req: VerifyTokenRequest, res: Response) => {
       products = await Product.find().sort({ createdAt: -1 }).limit(1);
     } else if (req.query.category) {
       products = await Product.find({
-        categories: { $in: [Number(req.query.category)] },
+        categories: {
+          $in: !isNaN(Number(req.query.category))
+            ? [Number(req.query.category)]
+            : [req.query.category],
+        },
       });
     } else {
       products = await Product.find();
