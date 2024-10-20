@@ -12,6 +12,7 @@ import Register from "./pages/Register";
 
 function App() {
   const user = useSelector((state: RootState) => state.user.currentUser);
+  console.log(useSelector((state: RootState) => state.user.currentUser));
   return (
     <BrowserRouter>
       <Routes>

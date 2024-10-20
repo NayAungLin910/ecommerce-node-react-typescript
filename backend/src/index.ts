@@ -4,6 +4,7 @@ import authRouter from "./routes/auth";
 import cartRouter from "./routes/cart";
 import productRouter from "./routes/product";
 import userRouter from "./routes/user";
+import stripeRouter from "./routes/stripe"
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -24,6 +25,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/checkout", stripeRouter);
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Express is listening...");

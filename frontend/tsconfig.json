@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
   },
+  "files": ["./src/types/axios-extension.d.ts"],
   "include": ["src"]
 }

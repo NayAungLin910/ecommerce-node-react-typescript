@@ -10,6 +10,8 @@ import { useLocation } from "react-router-dom";
 import { publicRequest } from "../components/utilities/axios-common";
 import { AxiosResponse } from "axios";
 import { ProductRequestInterface } from "../types/response-types";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -137,6 +139,7 @@ const Product: FC<ProductPropsInterface> = ({}) => {
   const [quantity, setQuantity] = useState<number>(1);
   const [color, setColor] = useState<string>("");
   const [size, setSize] = useState<string>("");
+  const dispatch = useDispatch();
 
   const handleQuantity = (type: string) => {
     if (type === "dec") {
@@ -148,7 +151,9 @@ const Product: FC<ProductPropsInterface> = ({}) => {
     }
   };
 
-  const handleClick = () => {};
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
 
   useEffect(() => {
     const getProduct = async () => {

@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { mobile } from "./css-helper/css-helper";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Badge } from "@mui/material";
 
 const Container = styled.div`
   height: 60px;
@@ -68,6 +71,7 @@ const MenuItem = styled.div`
 `;
 
 const Navbar: FC<{}> = () => {
+  const cart = useSelector((state: RootState) => state.cart);
   return (
     <>
       <Container>
@@ -85,7 +89,9 @@ const Navbar: FC<{}> = () => {
             <MenuItem>SIGN IN</MenuItem>
             <Link to="/cart">
               <MenuItem>
-                <FaShoppingCart color="blue" fontSize={16} />
+                <Badge badgeContent={cart.quantity} color="primary">
+                  <FaShoppingCart color="blue" fontSize={16} />
+                </Badge>
               </MenuItem>
             </Link>
           </Right>

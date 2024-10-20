@@ -9,4 +9,6 @@ export interface ProductRequestInterface {
   inStock?: boolean;
   createdAt: string;
   updatedAt: string;
+  id?: string;
+  image?: string;
 }

@@ -19,7 +19,6 @@ router.put(
           process.env.PASS_SEC!
         ).toString()
       : undefined;
-
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,

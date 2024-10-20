@@ -46,9 +46,9 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
   }, [cat]);
 
   useEffect(() => {
-    filtersExist &&
+    if (filtersExist && products) {
       setFilteredProducts(() =>
-        products!.filter((pd) =>
+        products.filter((pd) =>
           Object.entries(filters).every(([key, value]) => {
             const pdValue = pd[key as keyof ProductRequestInterface];
             if (Array.isArray(pdValue) && value) {
@@ -57,6 +57,7 @@ const Products: FC<ProductsComponentInterface> = ({ cat, filters, sort }) => {
           })
         )
       );
+    }
   }, [products, filters]);
 
   useEffect(() => {

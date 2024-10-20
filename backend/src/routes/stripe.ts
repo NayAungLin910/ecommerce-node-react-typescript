@@ -15,3 +15,5 @@ router.post("/payment", (req: VerifyTokenRequest, res: Response) => {
     .then((charge) => res.status(200).json(charge))
     .catch((error) => res.status(500).json(error));
 });
+
+export default router;
